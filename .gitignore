@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Node
+node_modules/
+
+# 数据与临时产物
+data/
+*.jsonl
+*.db
+/tmp/
+gold_cases*.jsonl
+paipan_eval*.json
+
+# 密钥与环境
+.env
+.env.*
+*.pem
+*id_ed25519*
+auth.json
+
+# OS
+.DS_Store
+Thumbs.db

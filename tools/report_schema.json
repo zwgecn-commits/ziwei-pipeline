@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "zwge-report-schema-v1",
+  "title": "紫微阁六件套呈现数据契约 v1",
+  "description": "六件套=结构化 JSON 契约+模板渲染，LLM 只填判词；评分=确定性公式（六宫禄打分+规则引擎）；技法溯源替代派别分节。",
+  "type": "object",
+  "required": ["schema_version", "meta", "chart_facts", "rule_verdict", "sections", "scores", "gate"],
+  "properties": {
+    "schema_version": { "const": "report/v1" },
+    "meta": {
+      "description": "封面信息：脱敏身份+排盘指纹+引擎版本+呈现伦理",
+      "type": "object",
+      "required": ["case_id", "gender", "deidentified", "fingerprint", "engine", "wuxing_ju", "laiyin", "timestamp"],
+      "properties": {
+        "case_id": { "type": "string", "description": "案例编号（不含完整生日信息）" },
+        "gender": { "type": "string", "enum": ["男", "女"] },
+        "deidentified": { "type": "boolean", "description": "true=已脱敏（仅保留年月与性别）" },
+        "fingerprint": { "type": "string", "pattern": "命.{1,}局.{1,}", "description": "数字指纹：命{地支}{局}·{星首字}{禄权科忌}×4（如 命酉火六局·天禄·天权·文科·廉忌）" },
+        "engine": { "type": "string", "const": "ziwei_chart.js" },
+        "wuxing_ju": { "type": "string" },
+        "laiyin": { "type": "string", "description": "来因宫仅作内部记录，不对外展示" },
+        "timestamp": { "type": "string" }
+      }
+    },
+    "chart_facts": {
+      "description": "确定性事实层（机械生成·禁 LLM 生成/计算）：十二宫+四化+大限+流年",
+      "type": "object",
+      "required": ["ming", "shen", "palaces", "sihua_birth", "daxian", "liunian"],
+      "properties": {
+        "ming": { "type": "string", "description": "命宫 天干地支+主星（模板渲染用）" },
+        "shen": { "type": "string", "description": "身宫 格式：本命XX（身宫落迁移）" },
+        "palaces": { "type": "array", "items": { "type": "string" }, "minItems": 12, "maxItems": 12, "description": "十二宫逐宫：本命XX(大限YY): 主[..] 辅[..]" },
+        "sihua_birth": { "type": "object", "required": ["禄", "权", "科", "忌"], "properties": { "禄": { "type": "string" }, "权": { "type": "string" }, "科": { "type": "string" }, "忌": { "type": "string" } }, "description": "生年四化 星曜@宫位" },
+        "daxian": { "type": "array", "items": { "type": "string" }, "minItems": 12, "maxItems": 12, "description": "大限权威表（一行一限：岁段·宫名·四化）" },
+        "liunian": { "type": "array", "items": { "type": "string" }, "description": "流年四化（当前大限十年，按年排序，含流年命宫落点）" }
+      }
+    },
+    "rule_verdict": {
+      "description": "规则引擎判定（32条双级：P0 18 / P1 14）—机械生成，仅作 Prompt 注入与评分",
+      "type": "object",
+      "required": ["p0", "p1", "fingerprint_verify"],
+      "properties": {
+        "p0": { "type": "object", "required": ["hit", "total"], "properties": { "hit": { "type": "integer" }, "total": { "type": "integer", "const": 18 }, "detail": { "type": "array", "items": { "type": "string" } } } },
+        "p1": { "type": "object", "required": ["hit", "total"], "properties": { "hit": { "type": "integer" }, "total": { "type": "integer", "const": 14 }, "detail": { "type": "array", "items": { "type": "string" } } } },
+        "fingerprint_verify": { "type": "string", "description": "模型输出复述的指纹（与 meta.fingerprint 比对）" }
+      }
+    },
+    "sections": {
+      "description": "LLM 判词层——六件套模板分节，LLM 只填判词；每节带技法溯源（替代派别分节）",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "verdict", "technique_trace"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^s[1-9]$" },
+          "title": { "type": "string" },
+          "verdict": { "type": "string", "description": "判词（LLM 填写·措辞约束：禁必/必然/绝对，用风险显著升高/倾向）" },
+          "technique_trace": { "type": "array", "items": { "type": "string" }, "description": "技法溯源（如：忌之四态·坐/冲/出/自化；不引动不发生；应期四阶梯→②宫位交感），禁派别标签" },
+          "banned_terms_ok": { "type": "boolean", "description": "黑名单词检查（用神/来因宫/体用法/河图洛书/三象成物/物象法/先得后散 已剔除）" }
+        }
+      }
+    },
+    "scores": {
+      "description": "确定性评分=六宫禄打分（禄3权2科1忌-1·逐宫列式·满分18）+ 规则引擎 P0/P1 —— 禁 LLM 打分",
+      "type": "object",
+      "required": ["liugong_lu", "formula", "rules_engine_signal", "verdict"],
+      "properties": {
+        "liugong_lu": { "type": "object", "description": "逐宫列式（如 本命财帛: 禄+3 → 5/18）" },
+        "formula": { "type": "array", "items": { "type": "string" }, "description": "列式细节（每宫一行：宫名/星/四化/得分）" },
+        "rules_engine_signal": { "type": "string", "description": "规则引擎信号（P0 命中比）" },
+        "verdict": { "type": "string", "description": "总分与倾向（由公式得出的确定性结论，非 LLM）" }
+      }
+    },
+    "gate": {
+      "description": "闸门层：L2 校验/对账/硬错率（P0 硬错率<2% 才可上线）",
+      "type": "object",
+      "required": ["l2_lower", "reconcile", "hard_error_rate", "upper_gate"],
+      "properties": {
+        "l2_lower": { "type": "string", "enum": ["PASS", "FAIL", "DEGRADED"] },
+        "reconcile": { "type": "string", "enum": ["PASS", "FAIL"] },
+        "hard_error_rate": { "type": "number", "minimum": 0, "maximum": 1, "description": "四类硬错率（星曜缺失/四化错配/宫位错置/年份锚点漂移）" },
+        "upper_gate": { "type": "boolean", "description": "true=可上线交付" },
+        "notes": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  },
+  "additionalProperties": false
+}

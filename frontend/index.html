@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="night">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>紫微阁 · 紫微斗数 AI · 钦天为根 古籍参详</title>
+<meta name="description" content="紫微阁 · 紫微斗数 AI 网：钦天门斗数研习，排盘以文墨天机为金标准。古籍为根、AI 参详——十二宫盘面、四化流转、大限流年，逐句可溯源。仅作传统文化研究与体验。">
+<meta name="theme-color" content="#0B0E14">
+<meta property="og:title" content="紫微阁 · 紫微斗数 AI">
+<meta property="og:description" content="钦天为根 · AI 参详。排盘以文墨天机为金标准，古籍为根、逐句可溯源。">
+<meta property="og:type" content="website">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='44' fill='%230B0E14' stroke='%23B89563' stroke-width='3'/%3E%3Ccircle cx='50' cy='50' r='4' fill='%239B7BD1'/%3E%3Ccircle cx='50' cy='22' r='5' fill='%23B89563'/%3E%3Ccircle cx='50' cy='78' r='5' fill='%23B89563'/%3E%3Ccircle cx='22' cy='50' r='5' fill='%23B89563'/%3E%3Ccircle cx='78' cy='50' r='5' fill='%23B89563'/%3E%3Ccircle cx='30' cy='30' r='3' fill='%239B7BD1'/%3E%3Ccircle cx='70' cy='30' r='3' fill='%239B7BD1'/%3E%3Ccircle cx='30' cy='70' r='3' fill='%239B7BD1'/%3E%3Ccircle cx='70' cy='70' r='3' fill='%239B7BD1'/%3E%3C/svg%3E">
+<!-- 霞鹜文楷（古籍楷书·仅桌面加载，按需子集） -->
+<link rel="stylesheet" media="(min-width:1024px)" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/lxgwwenkai-regular.css">
+<link rel="stylesheet" media="(min-width:1024px)" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/lxgwwenkai-bold.css">
+<script>
+/* 主题恢复（pre-hydration 防闪烁）：night=墨夜 classic=华彩 zen=素简 */
+(function(){try{
+  var t=localStorage.getItem('zwg-theme');
+  if(t==='classic'||t==='zen'||t==='night'){document.documentElement.setAttribute('data-theme',t);}
+}catch(e){}})();
+</script>
+<style>
+/* ============ 紫微阁 v3 · 三皮肤纸墨堪舆体系（2026-09 重构） ============ */
+:root{
+  --font-serif:"Songti SC","STSong","Noto Serif SC","Noto Serif CJK SC",Georgia,serif;
+  --font-kai:"LXGW WenKai","Kaiti SC","KaiTi","STKaiti",serif;
+  --font-sans:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  --ji:#63b58c; --xiong:#e0674f; --jing:#e0a85a; --jiang-hong:#c9718a;
+  --wx-mu:#4ec777; --wx-huo:#f2554a; --wx-tu:#d69f6a; --wx-jin:#e6c34a; --wx-shui:#62a0f2;
+  --hua-lu:#34d399; --hua-quan:#fb7185; --hua-ke:#38bdf8; --hua-ji:#fbbf24;
+  --tabbar-safe:max(env(safe-area-inset-bottom,0px),8px);
+}
+[data-theme="night"]{
+  --bg:#0B0E14;--card:#11151E;--card2:#141a26;--gold:#B89563;--purple:#9B7BD1;--text:#E8E8E8;--dim:#9BA3B4;
+  --border:rgba(184,149,99,.18);--input-bg:#161B26;--user-bubble:#2A2138;--ai-bubble:#151B28;
+  --chip:#1a2030;--glow:rgba(184,149,99,.14);--src:#D4B87A;
+  --topper:rgba(11,14,20,.9);--useredge:rgba(155,123,209,.25);--strong:#E8C080;
+  --gradbtn:linear-gradient(135deg,#B89563,#7A5B33);--orb:rgba(17,21,30,.92);
+  --panline:rgba(184,149,99,.35);
+}
+[data-theme="classic"]{
+  --bg:#062e2e;--card:#0a3b3b;--card2:#0d4141;--gold:#D4AF37;--purple:#A78BFA;--text:#f0efe6;--dim:#93a8a8;
+  --border:rgba(212,175,55,.28);--input-bg:#0b3434;--user-bubble:#1c2c46;--ai-bubble:#0c3535;
+  --chip:#123f3f;--glow:rgba(212,175,55,.16);--src:#E8C97A;
+  --topper:rgba(6,46,46,.9);--useredge:rgba(167,139,250,.28);--strong:#F0D9A0;
+  --gradbtn:linear-gradient(135deg,#D4AF37,#8a6f1f);--orb:rgba(10,59,59,.92);
+  --panline:rgba(212,175,55,.45);
+}
+[data-theme="zen"]{
+  --bg:#fbfaf5;--card:#f4f1e8;--card2:#efe9d9;--gold:#a8852f;--purple:#6c4fb0;--text:#1f2d2d;--dim:#5f6e6e;
+  --border:rgba(31,45,45,.18);--input-bg:#f0ece0;--user-bubble:#e7dff2;--ai-bubble:#efece0;
+  --chip:#eee9db;--glow:rgba(168,133,47,.12);--src:#7a5c22;
+  --topper:rgba(251,250,245,.92);--useredge:rgba(108,79,176,.30);--strong:#8a6a2a;
+  --gradbtn:linear-gradient(135deg,#c9a14a,#8f6f2f);--orb:rgba(244,241,232,.95);
+  --panline:rgba(31,45,45,.25);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+.d-none{display:none!important}
+body{background:var(--bg);color:var(--text);font-family:var(--font-sans),var(--font-serif),sans-serif;height:100vh;display:flex;flex-direction:column;overflow:hidden;transition:background .35s ease,color .35s ease}
+/* 背景星辉（桌面氛围） */
+.stardust{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.stardust i{position:absolute;width:3px;height:3px;border-radius:50%;background:var(--gold);opacity:.18;animation:floatP 14s infinite ease-in-out}
+.stardust i:nth-child(1){top:12%;left:18%;animation-delay:0s}
+.stardust i:nth-child(2){top:32%;left:78%;animation-delay:2.2s}
+.stardust i:nth-child(3){top:64%;left:8%;animation-delay:4.5s}
+.stardust i:nth-child(4){top:78%;left:62%;animation-delay:1.4s}
+.stardust i:nth-child(5){top:22%;left:44%;animation-delay:6s}
+.stardust i:nth-child(6){top:56%;left:90%;animation-delay:8s}
+@keyframes floatP{0%,100%{transform:translateY(0);opacity:.18}50%{transform:translateY(-34px);opacity:.5}}
+/* 顶部导航（桌面） */
+.topbar{display:none;flex:0 0 auto;align-items:center;gap:14px;padding:0 22px;height:64px;border-bottom:1px solid var(--border);background:var(--topper);position:relative;z-index:10}
+.topbar .brand{display:flex;align-items:center;gap:10px;font-family:var(--font-kai),var(--font-serif);font-size:19px;letter-spacing:5px;color:var(--gold)}
+.topbar .brand .en{font-size:9.5px;letter-spacing:2.5px;color:var(--dim);align-self:flex-end;margin-bottom:3px}
+.topbar .nav{display:flex;gap:4px;margin-left:12px}
+.topbar .nav a{color:var(--dim);font-size:13px;letter-spacing:1px;padding:6px 12px;border-radius:9px;text-decoration:none;transition:all .2s}
+.topbar .nav a:hover{color:var(--gold);background:var(--glow)}
+.topbar .right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.topbar .coins{font-size:12.5px;color:var(--gold);border:1px solid var(--border);border-radius:20px;padding:5px 12px;background:var(--chip)}
+.topbar .orb{margin-left:2px;cursor:pointer;display:inline-flex;flex-direction:column;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;border:1px solid var(--gold);background:var(--orb);transition:all .25s}
+.topbar .orb:hover{transform:scale(1.06)}
+.topbar .orb .oc{font-family:var(--font-kai),var(--font-serif);font-size:15px;color:var(--gold)}
+.topbar .orb .ol{font-size:7.5px;color:var(--dim);letter-spacing:1px}
+/* 三栏外壳（桌面）+ 移动端中央聊天常显 */
+.shell{display:flex;flex:1;min-height:0;position:relative;z-index:1}
+.side{display:none;flex-direction:column;gap:12px;padding:14px;overflow-y:auto;min-height:0}
+.side.left{width:396px;border-right:1px solid var(--border)}
+.side.right{width:290px;border-left:1px solid var(--border)}
+.main{flex:1;min-width:0;display:flex;flex-direction:column;min-height:0}
+/* 卡片 */
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px}
+.card h3{font-family:var(--font-kai),var(--font-serif);font-size:14px;color:var(--gold);letter-spacing:2px;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.card h3::before{content:"";width:4px;height:12px;background:var(--gold);border-radius:2px;display:inline-block}
+.card .muted{font-size:11.5px;color:var(--dim);line-height:1.7}
+/* 盘面（十二宫） */
+.panhead{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.panhead .ph{font-size:11px;color:var(--dim);border:1px solid var(--border);border-radius:12px;padding:2px 8px}
+.panhead .ph b{color:var(--gold);font-weight:600}
+.pangrid{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(4,auto);gap:4px;aspect-ratio:1.05}
+/* 盘面格（v4 竖排版 · 2026-09 重构） */
+.pcell{position:relative;border:1px solid var(--panline);border-radius:8px;padding:5px 6px;background:var(--card2);min-height:0;overflow:hidden;display:flex;flex-direction:column;gap:2px}
+.pcell .ganzhi{font-size:9px;color:var(--gold);white-space:nowrap;border-bottom:1px dashed var(--panline);padding-bottom:2px;display:flex;justify-content:space-between;align-items:center}
+.pcell .shen{font-size:8px;color:var(--purple);flex:0 0 auto}
+.pcell .stars{display:flex;flex-direction:column;gap:1px;min-width:0}
+.pcell .stars .st{font-family:var(--font-kai),var(--font-serif);font-size:12px;line-height:1.5;color:var(--text);white-space:nowrap}
+.pcell .stars .st b{font-size:9px;font-weight:700;margin-left:2px}
+.pcell .minor{font-size:8.5px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
+.pcenter{grid-column:2/4;grid-row:2/4;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border:1px solid var(--panline);border-radius:12px;background:var(--glow);font-family:var(--font-kai),var(--font-serif);padding:4px;min-width:0}
+.pcenter .pcname{font-size:13px;color:var(--gold);letter-spacing:1px;white-space:nowrap}
+.pcenter .pcsub{font-size:10px;color:var(--dim);white-space:nowrap}
+.pcenter .pcsi{font-size:9px;color:var(--dim);text-align:center;line-height:1.5;white-space:normal}
+.pcenter .pcsi b{font-weight:700}
+/* 盘面放大模态 */
+.panZoom{display:none;position:fixed;inset:0;z-index:120;background:rgba(3,5,8,.85);backdrop-filter:blur(4px);align-items:center;justify-content:center}
+.panZoom.show{display:flex}
+.panZoom .zoomCard{width:min(92vmin,820px);max-height:94vh;overflow:auto;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:18px}
+.panZoom .zoomCard .pangrid{min-height:min(88vmin,780px)}
+.panZoom .zoomHead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.panZoom .zoomHead button{background:none;border:1px solid var(--border);color:var(--dim);border-radius:10px;padding:5px 14px;cursor:pointer}
+.panZoom .zoomHead button:hover{color:var(--gold);border-color:var(--gold)}
+.panZoom .zoomCard .pcell{padding:10px 12px;border-radius:12px}
+.panZoom .zoomCard .pcell .ganzhi{font-size:12px;padding-bottom:4px}
+.panZoom .zoomCard .pcell .stars .st{font-size:16px;line-height:1.6}
+.panZoom .zoomCard .pcell .stars .st b{font-size:11px;margin-left:3px}
+.panZoom .zoomCard .pcell .minor{font-size:10.5px;margin-top:2px}
+.panZoom .zoomCard .pcenter .pcname{font-size:17px}
+.panZoom .zoomCard .pcenter .pcsub{font-size:12px}
+.panZoom .zoomCard .pcenter .pcsi{font-size:12px}
+/* 知识/时令卡右栏 */
+.kbrow{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--dim);padding:5px 0;border-bottom:1px dashed var(--border)}
+.kbrow:last-child{border-bottom:none}
+.kbrow b{color:var(--text);font-weight:600}
+.kbrow .tag{font-size:10px;color:var(--purple)}
+.pbtn{display:block;width:100%;text-align:center;background:var(--chip);border:1px solid var(--border);border-radius:10px;padding:7px 0;font-size:12.5px;color:var(--dim);cursor:pointer;transition:all .2s;margin-top:8px;text-decoration:none}
+.pbtn:hover{color:var(--gold);border-color:var(--gold)}
+/* 移动端 hero（手机） */
+.hero{margin:0 0;padding:10px 14px 2px;text-align:center;position:relative;z-index:1}
+.hero .slogan{font-family:var(--font-kai),var(--font-serif);font-size:24px;letter-spacing:10px;color:var(--gold);text-shadow:0 0 30px var(--glow)}
+.hero .sub{font-size:11px;color:var(--dim);letter-spacing:4px;margin-top:4px}
+.hero .chips{display:flex;gap:8px;justify-content:center;margin-top:10px;flex-wrap:wrap}
+.hero .chips span{font-size:10.5px;border:1px solid var(--border);color:var(--dim);border-radius:14px;padding:3px 10px;background:var(--card)}
+/* 头部（移动端）/小屏顶栏 */
+.header{display:block;flex:0 0 auto;text-align:center;padding:12px 18px 10px;border-bottom:1px solid var(--border);background:var(--topper);position:relative;z-index:2}
+.header h1{font-family:var(--font-kai),var(--font-serif);font-size:19px;letter-spacing:8px;color:var(--gold);font-weight:600}
+.header .en{font-size:10px;color:var(--dim);letter-spacing:3px;margin-top:2px}
+.header .tag{font-size:11px;color:var(--purple);letter-spacing:2px;margin-top:2px}
+.header .coins{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--gold);border:1px solid var(--border);border-radius:20px;padding:4px 10px;background:var(--chip);cursor:default}
+/* 消息区 */
+.msgs{flex:1;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:12px;scroll-behavior:smooth}
+.msg{display:flex;flex-direction:column;max-width:86%;gap:5px;animation:fadeIn .25s ease}
+.msg.user{align-self:flex-end;align-items:flex-end}
+.msg.ai{align-self:flex-start;align-items:flex-start}
+.msg .bubble{padding:11px 14px;border-radius:13px;font-size:14.5px;line-height:1.85;white-space:pre-wrap;word-break:break-word;overflow-wrap:anywhere}
+.msg.user .bubble{background:var(--user-bubble);border:1px solid var(--useredge);border-bottom-right-radius:4px}
+.msg.ai .bubble{background:var(--ai-bubble);border:1px solid var(--border);border-bottom-left-radius:4px;border-left:3px solid var(--gold)}
+.msg .meta{font-size:11px;color:var(--dim);padding:0 4px}
+.md h1,.md h2,.md h3,.md h4{color:var(--gold);margin:10px 0 5px;font-weight:600}
+.md h3{font-size:15px}.md h4{font-size:14px}
+.md strong{color:var(--strong)}
+.md em{color:var(--purple)}
+.md ul,.md ol{margin:6px 0;padding-left:20px}
+.md li{margin:3px 0}
+.md table{border-collapse:collapse;margin:8px 0;width:100%;font-size:13px}
+.md th,.md td{border:1px solid var(--border);padding:6px 9px;text-align:left}
+.md th{background:var(--glow);color:var(--gold)}
+.md blockquote{border-left:3px solid var(--gold);padding:4px 10px;margin:6px 0;color:var(--dim);background:var(--glow);border-radius:0 6px 6px 0}
+.md code{background:var(--chip);padding:1px 6px;border-radius:4px;font-size:13px}
+.md hr{border:none;border-top:1px solid var(--border);margin:10px 0}
+.md .src{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;color:var(--src);border:1px solid var(--border);border-left:2px solid var(--gold);background:var(--glow);border-radius:0 8px 8px 0;padding:1px 8px;margin:2px 4px}
+.md .hualu{color:var(--hua-lu)}.md .huaquan{color:var(--hua-quan)}.md .huake{color:var(--hua-ke)}.md .huaji{color:var(--hua-ji)}
+.thinking{display:flex;gap:6px;align-items:center;color:var(--dim);font-size:13px;padding:4px 2px}
+.thinking .dot{width:7px;height:7px;border-radius:50%;background:var(--gold);animation:bounce 1.2s infinite}
+.thinking .dot:nth-child(2){animation-delay:.15s}.thinking .dot:nth-child(3){animation-delay:.3s}
+@keyframes bounce{0%,80%,100%{transform:translateY(0);opacity:.5}40%{transform:translateY(-5px);opacity:1}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.pills{flex:0 0 auto;display:flex;gap:8px;align-items:center;justify-content:center;padding:8px 12px 0;font-size:12px;color:var(--dim);flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--border);background:var(--chip);border-radius:20px;padding:4px 12px;cursor:pointer;transition:all .2s;user-select:none}
+.pill.on{border-color:var(--gold);color:var(--gold);background:var(--glow)}
+.pill:hover{border-color:var(--gold)}
+.formbar{flex:0 0 auto;padding:4px 14px 0;max-width:860px;margin:0 auto;width:100%}
+.formbar .fbtn{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--dim);border:1px dashed var(--border);border-radius:16px;padding:4px 12px;background:none;cursor:pointer;transition:all .2s}
+.formbar .fbtn:hover{color:var(--gold);border-color:var(--gold)}
+.qform{display:none;margin-top:8px;border:1px solid var(--border);background:var(--card);border-radius:14px;padding:12px;animation:fadeIn .2s ease;flex-wrap:wrap;gap:8px}
+.qform.show{display:flex}
+.qform label{display:flex;flex-direction:column;font-size:11px;color:var(--dim);gap:3px;min-width:88px;flex:1}
+.qform select,.qform input{background:var(--input-bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;padding:6px 8px;outline:none}
+.qform select:focus,.qform input:focus{border-color:var(--gold)}
+.qform .qgo{background:var(--gradbtn);border:none;border-radius:10px;padding:8px 16px;color:#fff;cursor:pointer;font-size:13px;align-self:flex-end}
+.input-bar{flex:0 0 auto;padding:12px 14px;border-top:1px solid var(--border);background:var(--topper);position:relative;z-index:2}
+.input-wrap{display:flex;gap:9px;align-items:flex-end;max-width:860px;margin:0 auto}
+.input-wrap textarea{flex:1;background:var(--input-bg);border:1px solid var(--border);border-radius:11px;padding:11px 13px;color:var(--text);font-size:14.5px;line-height:1.5;resize:none;outline:none;max-height:120px;min-height:46px;transition:border-color .2s}
+.input-wrap textarea:focus{border-color:var(--gold)}
+.send-btn{background:var(--gradbtn);border:none;border-radius:11px;width:46px;height:46px;flex:0 0 auto;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:opacity .2s}
+.send-btn:disabled{opacity:.4;cursor:not-allowed}
+.send-btn svg{width:20px;height:20px;fill:#fff}
+.hint{font-size:12.5px;color:var(--dim);padding:2px 4px;display:flex;gap:10px;flex-wrap:wrap;max-width:860px;margin:0 auto 8px}
+.hint span{cursor:pointer;border:1px solid var(--border);border-radius:20px;padding:3px 12px;transition:all .2s}
+.hint span:hover{border-color:var(--gold);color:var(--gold)}
+.footer{flex:0 0 auto;text-align:center;padding:8px 12px;font-size:10.5px;color:var(--dim);border-top:1px solid var(--border);background:var(--topper);position:relative;z-index:2}
+.footer .brand{color:var(--gold);font-family:var(--font-kai),var(--font-serif)}
+.footer .disclaim{margin:2px 0 4px;letter-spacing:.5px}
+.footer .skins{display:flex;gap:10px;justify-content:center;margin-top:3px}
+.footer .skins span{cursor:pointer;letter-spacing:2px;opacity:.5;transition:all .2s}
+.footer .skins span.on{opacity:1;color:var(--gold)}
+.footer .skins span:hover{opacity:.9;color:var(--gold)}
+.theme-orb{position:fixed;right:16px;bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:60;width:52px;height:52px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;cursor:pointer;border:1px solid var(--gold);background:var(--orb);box-shadow:0 8px 26px var(--glow);transition:all .3s;user-select:none}
+.theme-orb:hover{transform:scale(1.06)}
+.theme-orb .orb-char{font-family:var(--font-kai),var(--font-serif);font-size:17px;color:var(--gold)}
+.theme-orb .orb-label{font-size:8px;color:var(--dim);letter-spacing:1px}
+@media(max-width:640px){
+  .header{padding:11px 12px}
+  .header h1{font-size:16px;letter-spacing:5px}
+  .header .en{font-size:9px;letter-spacing:2px}
+  .header .coins{right:10px;font-size:10px;padding:3px 8px}
+  .msgs{padding:12px 10px;gap:10px}
+  .msg{max-width:92%}
+  .msg .bubble{font-size:14px;padding:10px 12px}
+  .input-bar{padding:8px 10px;padding-bottom:10px}
+  .input-wrap textarea{font-size:16px;min-height:42px}
+  .send-btn{width:42px;height:42px}
+  .theme-orb{display:none}  /* 手机端用 footer 皮肤三联，防遮挡发送键 */
+  .pills{font-size:11px;gap:6px}
+  .pill{padding:3px 9px}
+  .hero .slogan{font-size:19px;letter-spacing:7px}
+  .hero .chips span{font-size:10px;padding:2px 8px}
+  .hero .chips{display:none}  /* 首屏精简 */
+  /* 手机盘面精简（2026-09 重构）：辅星隐藏·字号收紧·中心两行 */
+  .pangrid{gap:3px;min-height:300px}
+  .pcell{padding:4px 5px}
+  .pcell .stars .st{font-size:11px}
+  .pcell .stars .st b{font-size:8.5px}
+  .pcell .minor{display:none !important}
+  .pcenter .pcname{font-size:11px}
+  .pcenter .pcsub{font-size:8.5px}
+  .pcenter .pcsi{font-size:8px}
+  #phSoul,#phBody{display:none !important}
+  #phMix{font-size:10px;padding:2px 8px}
+  /* 手机精简约束（2026-09 重构） */
+  .header .tag{display:none !important}
+  .pills .plabel{display:none !important}
+  .pills{font-size:10.5px;gap:5px}
+  .pills .pill{padding:3px 8px;font-size:10.5px}
+}
+/* 移动端：聊天版（默认） */
+.m-only{display:block}
+.d-only{display:none}
+/* 桌面布局 */
+@media(min-width:1024px){
+  .topbar{display:flex}
+  .header,.hero{display:none}
+  .shell{display:flex}
+  .side.left{display:flex;width:396px;border-right:1px solid var(--border)}
+  .side.right{display:flex;width:290px;border-left:1px solid var(--border)}
+  .m-only{display:none}
+  .d-only{display:block}
+  .formbar.d-only{display:block}
+  .msgs{padding:18px 22px;max-width:760px;margin:0 auto;width:100%}
+  .msg .bubble{font-size:14.5px}
+  .main .pills{max-width:760px;margin:0 auto;width:100%}
+  .input-bar .input-wrap{max-width:760px}
+  .theme-orb{display:none}
+  .footer .skins{gap:14px;margin-top:4px}
+  .footer .skins span{font-size:11px;padding:3px 2px}
+}
+</style>
+</head>
+<body>
+<div class="stardust" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+<!-- 桌面顶栏 -->
+<div class="topbar">
+  <div class="brand">紫微阁<span class="en">ZIWEI PAVILION</span></div>
+  <div class="nav">
+    <a href="javascript:void(0)" onclick="toggleForm()">快排表单</a>
+    <a href="javascript:void(0)" onclick="scrolldown('recCard')">对账校准</a>
+    <a href="javascript:void(0)" onclick="setPersona('scholar');setDepth('pro')">严谨学者</a>
+  </div>
+  <div class="right">
+    <span class="coins" id="coinChip" title="紫微阁灵签（积分）">🪙 --</span>
+    <span class="orb" id="topOrb" onclick="cycleTheme()"><span class="oc" id="orbChar">墨</span><span class="ol" id="orbLabel">墨夜</span></span>
+  </div>
+</div>
+
+<!-- 移动端头部 -->
+<div class="header">
+  <h1>紫 微 阁</h1>
+  <div class="en">ZIWEI PAVILION · 钦天为根 古籍参详</div>
+  <div class="tag d-none">排盘问命 · 文墨天机金标准</div>
+  <div class="coins" id="coinChipM" title="紫微阁灵签">🪙 --</div>
+</div>
+
+<!-- 移动端 hero -->
+<div class="hero m-only">
+  <div class="slogan">钦 天 为 根 · 古 籍 参 详</div>
+  <div class="sub">紫微斗数 AI · 逐句可溯源</div>
+  <div class="chips"><span>十二宫盘面</span><span>四化流转</span><span>大限流年</span><span>文墨校准</span></div>
+</div>
+
+<div class="shell">
+  <!-- 左栏：盘面 + 表单 -->
+  <aside class="side left">
+    <div class="card">
+      <h3>命 盘</h3>
+      <div class="panhead" id="panHead" style="display:none">
+        <span class="ph" id="phMix" style="display:none"></span>
+        <span class="ph" id="phSoul" style="display:none"></span>
+        <span class="ph" id="phBody" style="display:none"></span>
+      </div>
+      <div class="pangrid" id="panGrid">
+        <div class="pcenter" id="panEmpty">
+          <div class="pcname">紫 微 阁</div>
+          <div class="pcsub">输入生辰 · 立绘命盘</div>
+          <div class="pcsi">钦天门 · 文墨金标准</div>
+        </div>
+      </div>
+      <div class="pbtn" id="panHint" style="display:none;cursor:pointer" onclick="openZoom()">🔍 放大盘面 · 点开看清每宫</div>
+    </div>
+    <div class="card">
+      <h3>快排表单</h3>
+      <div class="qform show" id="qformSide">
+        <label style="min-width:60px">年<input id="qfYearS" type="number" placeholder="1995" min="1900" max="2100"></label>
+        <label style="min-width:60px">月<select id="qfMonthS"></select></label>
+        <label style="min-width:60px">日<select id="qfDayS"></select></label>
+        <label style="min-width:72px">时辰<select id="qfHourS"></select></label>
+        <label style="min-width:60px">性别<select id="qfGenderS"><option>男</option><option selected>女</option></select></label>
+        <label style="min-width:110px">经度（真太阳时）<input id="qfLngS" type="number" placeholder="120.0" step="0.1"></label>
+        <button class="qgo" style="width:100%" onclick="qfFillS()">填入输入框 → 提问</button>
+      </div>
+    </div>
+    <div class="card">
+      <h3>钦天门·四查</h3>
+      <div class="muted">
+        <b style="color:var(--gold)">① 定主题</b> 大限命宫叠本命宫<br>
+        <b style="color:var(--gold)">② 列四化</b> 大限化踩生年化<br>
+        <b style="color:var(--gold)">③ 追忌链</b> 忌转忌 至六内<br>
+        <b style="color:var(--gold)">④ 断应期</b> 四阶梯 · 不引动不发
+      </div>
+    </div>
+  </aside>
+
+  <!-- 中央：聊天 -->
+  <main class="main">
+    <div class="msgs" id="msgs"></div>
+    <div class="pills">
+      <span class="plabel">风格</span>
+      <span class="pill on" id="pillScholar" onclick="setPersona('scholar')">🏛 严谨学者</span>
+      <span class="pill" id="pillFun" onclick="setPersona('fun')">🍵 趣味口吻</span>
+      <span class="plabel" style="opacity:.4">·</span>
+      <span class="plabel">深度</span>
+      <span class="pill on" id="pillPro" onclick="setDepth('pro')">专业完整</span>
+      <span class="pill" id="pillEasy" onclick="setDepth('easy')">通俗直给</span>
+    </div>
+    <div class="formbar d-only" style="display:none">
+      <button class="fbtn" id="formToggle" onclick="toggleForm()">📋 展开快排表单（精确录入）</button>
+      <div class="qform" id="qform">
+        <label>年<input id="qfYear" type="number" placeholder="1995" min="1900" max="2100"></label>
+        <label>月<select id="qfMonth"></select></label>
+        <label>日<select id="qfDay"></select></label>
+        <label>时辰<select id="qfHour"></select></label>
+        <label>性别<select id="qfGender"><option>男</option><option selected>女</option></select></label>
+        <label>经度（真太阳时,可选）<input id="qfLng" type="number" placeholder="120.0" step="0.1"></label>
+        <button class="qgo" onclick="qfFill()">填入 →</button>
+      </div>
+    </div>
+    <div class="input-bar">
+      <div class="hint" id="hint">
+        <span data-demo="1995年8月16日 午时 女">示例：1995年8月16日 午时 女</span>
+        <span data-demo="1990年1月15日 子时 女">示例：1990年1月15日 子时 女</span>
+        <span onclick="toggleForm()">📋 快排表单</span>
+      </div>
+      <div class="input-wrap">
+        <textarea id="inp" placeholder="输入生辰+问题，如：1995年8月16日 午时 女" rows="1"></textarea>
+        <button class="send-btn" id="sendBtn" onclick="send()" aria-label="发送">
+          <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- 右栏：知识 + 对账 -->
+  <aside class="side right">
+    <div class="card">
+      <h3>星曜一瞥</h3>
+      <div class="kbrow"><span><b>紫微</b></span><span class="tag">帝座·权衡</span></div>
+      <div class="kbrow"><span><b>贪狼</b></span><span class="tag">桃花·才艺</span></div>
+      <div class="kbrow"><span><b>武曲</b></span><span class="tag">财帛·刚毅</span></div>
+      <div class="kbrow"><span><b>廉贞</b></span><span class="tag">次桃花·律法</span></div>
+      <div class="kbrow"><span><b>天相</b></span><span class="tag">衣禄·辅佐</span></div>
+      <div class="kbrow"><span><b>七杀</b></span><span class="tag">将星·决断</span></div>
+    </div>
+    <div class="card">
+      <h3>术语速查</h3>
+      <div class="kbrow"><span>生年四化</span><span class="tag">禄权科忌</span></div>
+      <div class="kbrow"><span>来因宫</span><span class="tag">先天因缘</span></div>
+      <div class="kbrow"><span>叠宫</span><span class="tag">本命×大限×流年</span></div>
+      <div class="kbrow"><span>忌之四态</span><span class="tag">坐冲出自化</span></div>
+    </div>
+    <div class="card" id="recCard">
+      <h3>对账校准</h3>
+      <div class="muted">拿文墨天机排同一生辰，提交 3 个字段，差异直哺引擎。</div>
+      <button class="pbtn" id="reconBtn">🎯 开始对照</button>
+      <button class="pbtn" id="shareBtn" style="margin-top:6px">🔗 复制链接给同好</button>
+    </div>
+    <div class="card">
+      <h3>紫微阁</h3>
+      <div class="muted" style="font-size:10.5px">
+        钦天门斗数研习 · 排盘以文墨天机为金标准<br>
+        古籍为根 · AI 参详 · 不构成任何人生决策建议
+      </div>
+    </div>
+  </aside>
+</div>
+
+
+<div class="footer">
+  <div class="disclaim">紫微阁 · 仅作传统文化研究与体验，不构成任何人生决策建议</div>
+  <div class="brand"><span class="star">✦</span> 紫微阁 · 钦天门斗数研习 <span class="star">✦</span> 古籍为根 · 排盘以文墨天机为金标准</div>
+  <div style="margin-top:2px"><span onclick="document.getElementById('reconBtn').click()" style="cursor:pointer;color:var(--purple);font-size:10.5px;letter-spacing:1px">🎯 与文墨天机对照</span></div>
+  <div class="skins" id="skinLinks"></div>
+</div>
+
+<div class="panZoom" id="panZoom" onclick="if(event.target===this)closeZoom()">
+  <div class="zoomCard">
+    <div class="zoomHead">
+      <span style="font-family:var(--font-kai),var(--font-serif);font-size:16px;color:var(--gold);letter-spacing:3px">命 盘 大 图</span>
+      <button onclick="closeZoom()">✕ 收起</button>
+    </div>
+    <div class="pangrid" id="panGridZoom"></div>
+  </div>
+</div>
+<div class="theme-orb" id="themeOrb" onclick="cycleTheme()" title="切换皮肤">
+  <span class="orb-char" id="orbCharM">墨</span>
+  <span class="orb-label" id="orbLabelM">墨夜</span>
+</div>
+
+<div id="reconModal" style="display:none;position:fixed;inset:0;background:rgba(20,10,40,.72);z-index:99;overflow:auto;">
+  <div style="background:#fff;max-width:420px;margin:8vh auto;border-radius:16px;padding:22px;color:#2b2436;font-size:.9em;">
+    <h3 style="margin:0 0 10px;color:#6B4FA0;">与文墨天机对照</h3>
+    <p style="color:#8A7F99;font-size:.85em;margin:0 0 12px;">用文墨天机排<b>同一生辰</b>的盘，填 3 个字段即可。差异经复核将直接反哺引擎修正。</p>
+    <label>你的生辰（本站）<input id="rcYear" type="number" placeholder="年" style="width:24%"><input id="rcMonth" type="number" placeholder="月" style="width:24%"><input id="rcDay" type="number" placeholder="日" style="width:24%"><select id="rcGender" style="width:24%"><option>男</option><option>女</option></select></label>
+    <label>时辰 <select id="rcHour" style="width:100%;margin:6px 0 10px;">
+      <option value="0">子时 23:00-1:00</option><option value="2">丑时 1:00-3:00</option><option value="4">寅时 3:00-5:00</option>
+      <option value="6">卯时 5:00-7:00</option><option value="8">辰时 7:00-9:00</option><option value="10">巳时 9:00-11:00</option>
+      <option value="12" selected>午时 11:00-13:00</option><option value="14">未时 13:00-15:00</option><option value="16">申时 15:00-17:00</option>
+      <option value="18">酉时 17:00-19:00</option><option value="20">戌时 19:00-21:00</option><option value="22">亥时 21:00-23:00</option>
+    </select></label>
+    <label>文墨天机排的同生辰（需与本站完全一致）<input id="rcWYear" type="number" placeholder="年" style="width:24%"><input id="rcWMonth" type="number" placeholder="月" style="width:24%"><input id="rcWDay" type="number" placeholder="日" style="width:24%"><select id="rcWGender" style="width:24%"><option>男</option><option>女</option></select></label>
+    <label style="display:block;margin-top:10px;">① 命宫主星（如：紫微贪狼）<input id="rcMing" style="width:100%" placeholder="照抄文墨显示"></label>
+    <label style="display:block;">② 生年化禄（星@宫，如：天同@疾厄）<input id="rcLu" style="width:100%" placeholder="照抄文墨显示"></label>
+    <label style="display:block;">③ 身宫（如：迁移）<input id="rcShen" style="width:100%" placeholder="照抄文墨显示"></label>
+    <div id="rcResult" style="margin:10px 0;font-size:.85em;color:#6B4FA0;"></div>
+    <button id="rcSubmit" style="background:#6B4FA0;color:#fff;border:none;border-radius:10px;padding:9px 0;width:100%;cursor:pointer;">提交对照</button>
+    <button id="rcClose" style="background:none;border:none;color:#8A7F99;width:100%;padding:8px 0;cursor:pointer;">关闭</button>
+  </div>
+</div>
+<script>
+(function(){
+  var m=document.getElementById("reconModal");
+  document.getElementById("reconBtn").onclick=function(){m.style.display="block";};
+  document.getElementById("rcClose").onclick=function(){m.style.display="none";};
+  document.getElementById("shareBtn").onclick=function(){
+    var u=location.origin+"/ziwei";
+    if(navigator.clipboard){navigator.clipboard.writeText(u).then(function(){
+      alert("链接已复制，发给好友即可一起对照研究。");
+    });}
+  };
+  document.getElementById("rcSubmit").onclick=function(){
+    var birth={year:+rcYear.value,month:+rcMonth.value,day:+rcDay.value,hour:+rcHour.value,gender:rcGender.value};
+    var wmt={year:+rcWYear.value,month:+rcWMonth.value,day:+rcWDay.value,hour:+rcHour.value,gender:rcWGender.value};
+    var entries=[];
+    if(rcMing.value.trim())entries.push({field:"ming_major",user_value:rcMing.value.trim()});
+    if(rcLu.value.trim())entries.push({field:"sihua_lu",user_value:rcLu.value.trim()});
+    if(rcShen.value.trim())entries.push({field:"shen",user_value:rcShen.value.trim()});
+    if(!entries.length){rcResult.textContent="请至少填一个对照字段";return;}
+    rcResult.textContent="对照中…";
+    fetch("/api/recon/submit",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({user_id:"web-"+Math.random().toString(36).slice(2,10),birth:birth,wmt_birth:wmt,entries:entries})})
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(d.success&&d.mismatches&&d.mismatches.length){
+        rcResult.innerHTML="🔍 发现 <b>"+d.mismatches.length+"</b> 处差异，已进入复核队列。感谢校准！";
+      }else if(d.success){
+        rcResult.innerHTML="✅ 与引擎一致"+(d.points_awarded?("（+"+d.points_awarded+" 贡献分）"):"")+"，感谢参与！";
+      }else{
+        rcResult.textContent="⚠️ "+(d.error||"提交失败");
+      }
+    }).catch(function(){rcResult.textContent="⚠️ 网络错误，稍后再试";});
+  };
+})();
+</script>
+<script>
+/* ============ 紫微阁 v3 (2026-09-04 装修·桌面三栏+十二宫盘面+三皮肤) ============
+   v1/v2 全部逻辑保留：parseBirth/birthToAPI/submit/poll/mdRender/recon/share */
+const API_ASYNC = "/api/analyze/async";
+const API_STATUS = "/api/analyze/status/";
+const API_BALANCE = "/api/account/balance";
+const API_CHART = "/api/chart/pan";
+let ctx = { birth: null };
+let polling = false;
+let PERSONA = "scholar";
+let DEPTH = "pro";
+let lastBirth = null;   // 用于盘面
+
+const msgs = document.getElementById("msgs");
+const inp = document.getElementById("inp");
+
+/* ---------- 三皮肤 ---------- */
+const THEMES = [
+  {key:"night",  char:"墨", name:"墨夜"},
+  {key:"classic",char:"华", name:"华彩"},
+  {key:"zen",    char:"素", name:"素简"}
+];
+function applyTheme(key){
+  document.documentElement.setAttribute("data-theme",key);
+  const t = THEMES.find(x=>x.key===key) || THEMES[0];
+  ["orbChar","orbCharM"].forEach(id=>{var el=document.getElementById(id); if(el)el.textContent=t.char;});
+  ["orbLabel","orbLabelM"].forEach(id=>{var el=document.getElementById(id); if(el)el.textContent=t.name;});
+  const links = document.getElementById("skinLinks");
+  links.innerHTML = "";
+  THEMES.forEach(th=>{
+    const sp = document.createElement("span");
+    sp.textContent = th.name;
+    if(th.key===key) sp.className="on";
+    sp.onclick = ()=>{ try{localStorage.setItem("zwg-theme",th.key);}catch(e){} applyTheme(th.key); };
+    links.appendChild(sp);
+  });
+  try{localStorage.setItem("zwg-theme",key);}catch(e){}
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if(meta){ meta.setAttribute("content", getComputedStyle(document.body).backgroundColor); }
+}
+function cycleTheme(){
+  let cur = document.documentElement.getAttribute("data-theme")||"night";
+  const idx = THEMES.findIndex(x=>x.key===cur);
+  applyTheme(THEMES[(idx+1)%THEMES.length].key);
+}
+document.getElementById("themeOrb").onclick = cycleTheme;
+document.getElementById("topOrb").onclick = cycleTheme;
+
+/* ---------- 人格/深度 ---------- */
+function setPersona(p){
+  PERSONA=p;
+  document.getElementById("pillScholar").classList.toggle("on",p==="scholar");
+  document.getElementById("pillFun").classList.toggle("on",p==="fun");
+}
+function setDepth(d){
+  DEPTH=d;
+  document.getElementById("pillPro").classList.toggle("on",d==="pro");
+  document.getElementById("pillEasy").classList.toggle("on",d==="easy");
+}
+function scrolldown(id){ var el=document.getElementById(id); if(el) el.scrollIntoView({behavior:"smooth"}); }
+
+/* ---------- 快排表单（移动） ---------- */
+const DZ = ["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"];
+function fillSelects(prefix, mEl, dEl, hEl){
+  for(let i=1;i<=12;i++){const o=document.createElement("option");o.value=i;o.textContent=i+"月";mEl.appendChild(o);}
+  for(let i=1;i<=31;i++){const o=document.createElement("option");o.value=i;o.textContent=i+"日";dEl.appendChild(o);}
+  DZ.forEach((z,i)=>{const o=document.createElement("option");o.value=(i*2%24);o.textContent=z+"时 "+(i*2%24)+":00-"+(i*2+2)%24+":00";hEl.appendChild(o);});
+  mEl.value=8; dEl.value=16; hEl.value=12;
+}
+fillSelects("m", document.getElementById("qfMonth"), document.getElementById("qfDay"), document.getElementById("qfHour"));
+fillSelects("s", document.getElementById("qfMonthS"), document.getElementById("qfDayS"), document.getElementById("qfHourS"));
+function toggleForm(){ document.getElementById("qform").classList.toggle("show"); }
+function qfFillText(y,m,d,h,g,lng){
+  const dz=DZ[Math.floor(((+h+1)/2)%12)];
+  let txt=y+"年"+m+"月"+d+"日 "+dz+"时 "+g;
+  if(lng){ const off=Math.round((+lng-120)*4); txt+="（经度"+lng+"，真太阳时偏移约"+(off>0?"+":"")+off+"分钟）"; }
+  return txt;
+}
+function qfFill(){
+  const t=qfFillText(document.getElementById("qfYear").value||"1995", document.getElementById("qfMonth").value,
+    document.getElementById("qfDay").value, document.getElementById("qfHour").value, document.getElementById("qfGender").value,
+    document.getElementById("qfLng").value);
+  inp.value=t+" 请分析命盘整体运势"; autoGrow(); inp.focus();
+}
+function qfFillS(){
+  const t=qfFillText(document.getElementById("qfYearS").value||"1995", document.getElementById("qfMonthS").value,
+    document.getElementById("qfDayS").value, document.getElementById("qfHourS").value, document.getElementById("qfGenderS").value,
+    document.getElementById("qfLngS").value);
+  inp.value=t+" 请分析命盘整体运势"; autoGrow(); inp.focus();
+}
+
+/* ---------- 对话区 ---------- */
+function addMsg(role, html, meta) {
+  const div = document.createElement("div");
+  div.className = "msg " + role;
+  const b = document.createElement("div");
+  b.className = "bubble";
+  if (role === "ai") { b.classList.add("md"); b.innerHTML = html; }
+  else { b.textContent = html; }
+  div.appendChild(b);
+  if (meta) {
+    const m = document.createElement("div");
+    m.className = "meta"; m.textContent = meta;
+    div.appendChild(m);
+  }
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+  return div;
+}
+function addThinking(label) {
+  const div = document.createElement("div");
+  div.className = "msg ai";
+  div.id = "thinkingBar";
+  div.innerHTML = '<div class="thinking"><span class="dot"></span><span class="dot"></span><span class="dot"></span>&nbsp;' + label + "</div>";
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+  return div;
+}
+function removeThinking() {
+  const t = document.getElementById("thinkingBar");
+  if (t) t.remove();
+}
+function esc(s) {
+  return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+function mdRender(src) {
+  let s = esc(src);
+  s = s.replace(/【出处[:：]?(.{1,60}?)】/g, '<span class="src">📜 $1</span>');
+  s = s.replace(/(生年)?(化)?禄/g, '<span class="hualu">$1$2禄</span>');
+  s = s.replace(/权/g, '<span class="huaquan">权</span>');
+  s = s.replace(/科/g, '<span class="huake">科</span>');
+  s = s.replace(/(生年)?(化)?忌/g, '<span class="huaji">$1$2忌</span>');
+  s = s.replace(/```([\s\S]*?)```/g, (m, c) => "<code>" + c.trim() + "</code>");
+  s = s.replace(/(^\|.+?\|[^\n]*\n)((?:\|[\s:|-]+\|)[^\n]*\n)?((?:\|.+?\|[^\n]*\n)+)/gm, (m, head, sep, rows) => {
+    const cell = r => r.split("|").slice(1, -1).map(c => "<td>" + c.trim() + "</td>").join("");
+    let h = head.trim().replace(/^\||\|$/g, "").split("|").map(c => "<th>" + c.trim() + "</th>").join("");
+    let body = rows.trim().split("\n").map(r => "<tr>" + cell(r) + "</tr>").join("");
+    return "<table><thead><tr>" + h + "</tr></thead><tbody>" + body + "</tbody></table>";
+  });
+  s = s.replace(/^&gt;\s?(.+)$/gm, "<blockquote>$1</blockquote>");
+  s = s.replace(/^#{1,4}\s?(.+)$/gm, "<h4>$1</h4>");
+  s = s.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+  s = s.replace(/(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)/g, "<em>$1</em>");
+  s = s.replace(/^[-•]\s?(.+)$/gm, "<li>$1</li>");
+  s = s.replace(/(<li>[\s\S]*?<\/li>)(?=\s*(<li>|<\/p>|$|\n))/g, "<ul>$1</ul>");
+  s = s.replace(/^---+$/gm, "<hr>");
+  s = s.replace(/\n/g, "<br>");
+  return s;
+}
+
+/* ---------- 生辰解析（v1 原版） ---------- */
+const DIZHI_HOUR = {23:"子",0:"子",1:"丑",3:"丑",5:"寅",7:"卯",9:"辰",11:"巳",13:"午",15:"未",17:"申",19:"酉",21:"戌"};
+const HOUR_ORDINAL = {"子":0,"丑":1,"寅":2,"卯":3,"辰":4,"巳":5,"午":6,"未":7,"申":8,"酉":9,"戌":10,"亥":11};
+function parseBirth(text) {
+  const t = text.replace(/[，。,.]/g, " ");
+  let birth = {};
+  const ym = t.match(/((?:19|20)\d{2})\s*年/);
+  if (ym) birth.year = +ym[1]; else return null;
+  const mm = t.match(/(\d{1,2})\s*月/);
+  if (mm) birth.month = +mm[1]; else return null;
+  const dd = t.match(/(\d{1,2})\s*日/);
+  if (dd) birth.day = +dd[1]; else return null;
+  let hourIdx = null;
+  const dz = t.match(/([子丑寅卯辰巳午未申酉戌亥])\s*时/);
+  if (dz) hourIdx = HOUR_ORDINAL[dz[1]];
+  else {
+    const hh = t.match(/(\d{1,2}\s*[:：点]\s*\d{0,2}|[正上下午]{0,2}\d{1,2}\s*[点时])/);
+    if (hh) {
+      const h = +hh[1].match(/\d+/)[0] % 24;
+      hourIdx = Math.floor((h + 1) / 2) % 12;
+    }
+  }
+  if (hourIdx === null) return null;
+  birth.hour = hourIdx;
+  let gender = null;
+  if (/男|male|公/.test(t)) gender = "男";
+  else if (/女|female|母/.test(t)) gender = "女";
+  if (!gender) return null;
+  birth.gender = gender;
+  return birth;
+}
+function birthToAPI(b) {
+  return { year: b.year, month: b.month, day: b.day, hour: b.hour * 2, gender: b.gender };
+}
+
+/* ---------- 十二宫盘面渲染（v3 核心新增） ---------- */
+const PAN_POS = {"巳":[0,0],"午":[0,1],"未":[0,2],"申":[0,3],"酉":[1,3],"戌":[2,3],"亥":[3,3],"子":[3,2],"丑":[3,1],"寅":[3,0],"卯":[2,0],"辰":[1,0]};
+const MUT_CLS = {"禄":"l","权":"q","科":"k","忌":"j","化禄":"l","化权":"q","化科":"k","化忌":"j"};
+function starCell(s){
+  const nm = (s.name||"") + (s.mutagen ? '<b class="'+(MUT_CLS[s.mutagen]||"")+'">'+s.mutagen.slice(-1)+'</b>' : "");
+  return '<span class="st">'+nm+'</span>';
+}
+function renderPan(chart){
+  const grid = document.getElementById("panGrid");
+  const pl = (chart.palaces||{});
+  let html = "";
+  Object.keys(pl).forEach(function(name){
+    const g = pl[name] || {};
+    const dz = (g && g.diZhi) || "";
+    const pos = PAN_POS[dz];
+    if(!pos) return;
+    // 主星竖排（每颗一行，禁横排挤爆）
+    const majors = (g.major||[]).map(function(s){
+      const nm = (s.name||"") + (s.mutagen ? '<b class="'+MUT_CLS[s.mutagen]+'">'+s.mutagen.slice(-1)+'</b>' : "");
+      return '<div class="st">'+nm+'</div>';
+    }).join("");
+    // 辅星限2颗
+    const min = (g.minor||[]).slice(0,2).map(function(x){return typeof x==="string"?x:(x.name||"");}).join("·");
+    const minors = min ? '<div class="minor">'+min+'</div>' : '';
+    const isShen = g.isBodyPalace ? '<span class="shen">身</span>' : '';
+    html += '<div class="pcell" style="grid-column:'+(pos[1]+1)+';grid-row:'+(pos[0]+1)+'">'
+      +'<div class="ganzhi"><span>'+((g.tianGan||"")+(dz||"")+'·'+name)+'</span>'+isShen+'</div>'
+      +'<div class="stars">'+majors+'</div>'+minors+'</div>';
+  });
+  const si = chart.sihua||{};
+  const sv = function(k){ const v=si[k]; if(!v) return null; return (typeof v==="string")?v:(((v.star||"")+"@"+(v.palace||""))); };
+  const siRow = [
+    ['禄', sv("禄"), 'lu'], ['权', sv("权"), 'quan'], ['科', sv("科"), 'ke'], ['忌', sv("忌"), 'ji']
+  ].filter(function(x){ return x[1]; });
+  const ming = chart.ming||{}, shen = chart.shen||{};
+  const nameTxt = (ming.name||"") + (ming.dz||"");
+  html += '<div class="pcenter">'
+    +'<div class="pcname">命宫 '+nameTxt+'</div>'
+    +'<div class="pcsub">'+(chart.wuxingJu||"")+"局 · 身"+(shen.dz||"")+'</div>'
+    +'<div class="pcsi">'+(siRow.length? siRow.map(function(x){return '<b style="color:var(--hua-'+x[2]+')">'+x[0]+'</b>'+x[1];}).join(" &nbsp; ") : "钦天门 · 文墨金标准")+'</div>'
+    +'</div>';
+  grid.innerHTML = html;
+  const h1=document.getElementById("phMix"), h2=document.getElementById("phSoul"), h3=document.getElementById("phBody");
+  h1.style.display="inline-block"; h2.style.display="inline-block"; h3.style.display="inline-block";
+  h1.innerText="五行局 "+(chart.wuxingJu||"—")+"局";
+  h2.innerText="命主 "+(chart.soul||"—")+" · 身主 "+(chart.bodyStar||"—");
+  h3.innerText="来因宫 "+(chart.laiyinPalace||"—");
+  document.getElementById("panHead").style.display="flex";
+  document.getElementById("panHint").style.display="flex";
+}
+function openZoom(){
+  const src=document.getElementById("panGrid"), dst=document.getElementById("panGridZoom");
+  dst.innerHTML = src.innerHTML;
+  document.getElementById("panZoom").classList.add("show");
+}
+function closeZoom(){
+  document.getElementById("panZoom").classList.remove("show");
+}
+document.addEventListener("keydown",function(e){ if(e.key==="Escape") closeZoom(); });
+async function drawPan(birth){
+  if(!birth) return;
+  try{
+    const r = await fetch(API_CHART,{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({birth:birthToAPI(birth)})});
+    const d = await r.json();
+    if(d && d.success && d.pan){
+      renderPan(d.pan);
+      // 手机端（侧栏隐藏）插入可放大的命盘入口
+      if(window.innerWidth < 1024){
+        addMsg("ai", '<div style="display:flex;align-items:center;gap:8px;margin:2px 0">'
+          +'<span style="border:1px solid var(--border);border-radius:12px;background:var(--glow);padding:8px 14px;color:var(--gold);cursor:pointer;font-size:13px;letter-spacing:1px" onclick="openZoom()">🔮 命盘已绘 · 点击放大</span>'
+          +'</div>', "十二宫 · 文墨金标准");
+      }
+    }
+  }catch(e){ /* 盘面失败不阻断聊天 */ }
+}
+
+/* ---------- 发送 ---------- */
+async function send() {
+  const text = inp.value.trim();
+  if (!text || polling) return;
+  inp.value = ""; autoGrow();
+  addMsg("user", text);
+  if(!ctx.birth){ const b=parseBirth(text); if(b){ ctx.birth=b; lastBirth=b; drawPan(b); } }
+  const task = await submit(text);
+  if (!task) return;
+  await poll(task);
+}
+async function submit(text) {
+  let birth = ctx.birth ? null : parseBirth(text);
+  if (!birth && !ctx.birth) {
+    addMsg("ai", "请按格式输入：<strong>出生年 月 日 时辰 性别</strong> + 问题<br>例：<em>1995年8月16日 午时 女 今年财运如何</em>", "自动解析失败");
+    return null;
+  }
+  let question = text;
+  if (birth) {
+    ctx.birth = birth;
+    lastBirth = birth;
+    drawPan(birth);
+    question = text.replace(/((?:19|20)\d{2})\s*年\s*\d{1,2}\s*月\s*\d{1,2}\s*日\s*[子丑寅卯辰巳午未申酉戌亥]?\s*时?/g, "").replace(/男|女|male|female|公|母/g, "").trim() || "请分析此命盘的整体运势";
+  }
+  const payload = { birth: birthToAPI(ctx.birth), question: question || "请分析此命盘的整体运势" };
+  payload.personality = PERSONA;
+  payload.depth = DEPTH;
+  try {
+    const r = await fetch(API_ASYNC, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+    const d = await r.json();
+    if (d.task_id) return d.task_id;
+    if (d.answer) {
+      const rl = (d.report_url ? ' <a href="' + d.report_url + '" target="_blank" style="display:inline-block;margin:6px 0;padding:4px 12px;background:#6B4FA0;color:#fff;border-radius:6px;text-decoration:none;font-size:.85em">📄 查看HTML报告</a>' : '');
+      addMsg("ai", mdRender(d.answer) + rl, "同步"); return null;
+    }
+    throw new Error(d.error || d.detail || "提交失败");
+  } catch (e) {
+    addMsg("ai", "提交失败：" + e.message);
+    return null;
+  }
+}
+async function poll(taskId) {
+  polling = true;
+  sendBtn.disabled = true;
+  const bar = addThinking("正在排盘推演…约需数分钟");
+  let tries = 0;
+  while (true) {
+    await new Promise(r => setTimeout(r, 10000));
+    tries++;
+    let d;
+    try {
+      const resp = await fetch(API_STATUS + taskId);
+      d = await resp.json();
+    } catch (e) {
+      if (tries > 30) break;
+      continue;
+    }
+    if (d.status === "done") {
+      removeThinking();
+      const rl = (d.report_url ? ' <a href="' + d.report_url + '" target="_blank" style="display:inline-block;margin:6px 0;padding:4px 12px;background:#6B4FA0;color:#fff;border-radius:6px;text-decoration:none;font-size:.85em">📄 查看HTML报告</a>' : '');
+      addMsg("ai", mdRender(d.answer) + rl, "推演完成" + (d.techniques && d.techniques.length ? " · " + (d.techniques.join(" / ")) : ""));
+      break;
+    }
+    if (d.status === "error") {
+      removeThinking();
+      addMsg("ai", "推演未通过：" + (d.error || "未知错误"), "请稍后重试");
+      break;
+    }
+    const barEl = document.getElementById("thinkingBar");
+    if (barEl) barEl.innerHTML = '<div class="thinking"><span class="dot"></span><span class="dot"></span><span class="dot"></span>&nbsp;正在推演…' + Math.floor(tries * 10) + "s</div>";
+    if (tries > 90) break;
+  }
+  polling = false;
+  sendBtn.disabled = false;
+  inp.focus();
+}
+
+/* ---------- 输入交互 ---------- */
+function autoGrow() { inp.style.height = "auto"; inp.style.height = Math.min(inp.scrollHeight, 120) + "px"; }
+inp.addEventListener("input", autoGrow);
+inp.addEventListener("keydown", e => {
+  if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); }
+});
+document.querySelectorAll(".hint span").forEach(el => {
+  el.addEventListener("click", () => { inp.value = el.dataset.demo; inp.focus(); autoGrow(); });
+});
+
+/* ---------- 初始化 ---------- */
+applyTheme((function(){try{var t=localStorage.getItem("zwg-theme");return (t==="classic"||t==="zen"||t==="night")?t:"night";}catch(e){return "night";}})());
+(function loadBalance(){
+  fetch(API_BALANCE).then(r=>r.json()).then(d=>{
+    const v = (d && (d.balance!==undefined?d.balance:(d.points!==undefined?d.points:null)));
+    if(v!==null){
+      ["coinChip","coinChipM"].forEach(id=>{var el=document.getElementById(id); if(el)el.textContent="🪙 "+v;});
+    }
+  }).catch(()=>{});
+})();
+  if(window.innerWidth < 1024){
+    addMsg("ai", "欢迎来到<strong>紫微阁</strong>。钦天为根 · 古籍参详——<br><br>输入生辰，即刻立绘<b>十二宫命盘</b>并推演参详。<br><br>格式：<em>出生年 月 日 时辰 性别</em>，如「<em>1995年8月16日 午时 女 今年财运如何</em>」<br><span style='font-size:11px;color:var(--dim)'>出盘后点 🔮 放大；风格/深度可切换</span>", "紫微阁 · 排盘问命");
+  } else {
+    addMsg("ai", "欢迎来到<strong>紫微阁</strong>。钦天为根 · 古籍参详——<br><br>输入生辰，左侧立绘<b>十二宫命盘</b>，右侧星曜速查；中央即刻推演参详。<br><br>格式：<em>出生年 月 日 时辰 性别</em>，如「<em>1995年8月16日 午时 女 今年财运如何</em>」", "紫微阁 · 排盘问命");
+  }
+inp.focus();
+</script>
+</body>
+</html>
