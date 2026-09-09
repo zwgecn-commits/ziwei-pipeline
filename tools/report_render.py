@@ -97,6 +97,43 @@ def render(report):
     # 6. 质量门（契约版完整字段）
     gate_html = f"L2 {gate.get('l2_lower','')} ｜ reconcile {gate.get('reconcile','')} ｜ 硬错率 {gate.get('hard_error_rate','')} ｜ 上线闸 {gate.get('upper_gate','')}"
 
+    # 7. 报告反馈（opt-in：仅配置回传端点时渲染按钮）
+    fb_url = os.environ.get("ZIWEI_FEEDBACK_URL", "") or (meta or {}).get("feedback_url", "")
+    fb_html = ""
+    if fb_url:
+        fb_html = f"""
+<div class="feedback"><span class="fbtitle">这份分析对你有没有用？</span>
+<button onclick="zwFeedback(1)">👍 有用</button>
+<button onclick="zwFeedback(-1)">👎 不准</button>
+<span class="fbmsg" id="fbmsg"></span>
+</div>
+<script>
+var ZW_FB_URL = {json.dumps(fb_url, ensure_ascii=False)};
+var ZW_FB_META = {{"case_id": {json.dumps(meta.get('case_id',''), ensure_ascii=False)},
+                  "fingerprint": {json.dumps(meta.get('fingerprint',''), ensure_ascii=False)}}};
+function zwFeedback(rating) {{
+  var body = JSON.stringify({{"rating": rating, "case_id": ZW_FB_META.case_id,
+                             "fingerprint": ZW_FB_META.fingerprint}});
+  var x = new XMLHttpRequest();
+  x.open("POST", ZW_FB_URL, true);
+  x.setRequestHeader("Content-Type", "application/json");
+  x.onreadystatechange = function() {{
+    var m = document.getElementById("fbmsg");
+    if (x.readyState === 4) {{
+      m.textContent = (x.status < 300) ? "已收到，谢谢反馈！" : "发送失败（不影响使用）";
+      setTimeout(function() {{ m.textContent = ""; }}, 4000);
+    }}
+  }};
+  x.send(body);
+}}
+</script>
+<style>
+.feedback {{ margin-top:18px; padding:14px 16px; background:#F3EEE3; border-radius:10px; font-size:.95em; }}
+.feedback button {{ margin-left:10px; padding:6px 16px; border:none; border-radius:6px; background:var(--purple); color:#fff; cursor:pointer; }}
+.feedback .fbmsg {{ margin-left:12px; color:var(--muted); }}
+.fbtitle {{ color:var(--ink); }}
+</style>"""
+
     html = f"""<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"><title>紫微阁 · 命盘分析报告</title>
 <style>{CSS}</style></head><body><div class="wrap">
@@ -109,6 +146,7 @@ def render(report):
 <h2>③ 大限总览</h2><table><tr><th>岁段</th><th>宫位</th><th>大限四化</th><th>宫位映射(大限=本命·地支)</th></tr>{dx_rows}</table>
 <h2>④ 分析断语</h2>{sec_html}
 <h2>⑤ 综合评分</h2><div class="score-card">{cards or '—'}</div>
+{fb_html}
 <div class="ethics">⚠ 免责声明：本报告基于确定性排盘引擎数据，仅供研究、学习与娱乐参考，不构成任何现实决策依据。命理是"倾向"不是"宿命"——不引动不发生，事在人为。</div>
 </div></body></html>"""
     return html

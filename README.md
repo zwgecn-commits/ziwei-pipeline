@@ -16,6 +16,7 @@
 
 - [架构说明](docs/architecture.md) — 链路细节、质量门、踩坑铁律
 - [模型训练配方](docs/training-recipe.md) — 程序化 QA 数据构成 + QLoRA → GGUF + 升级验证
+- [数据回流协议](docs/telemetry.md) — opt-in 遥测/报告反馈/对账众包三通道（零遥测默认·隐私合规）
 
 ## 仓库结构
 
@@ -30,8 +31,9 @@ ziwei-pipeline/
 │   ├── prompt_builder.py     # prompt 构造：事实表 + 动态权威表 + 规则判定（知识外置）
 │   ├── report_schema.json    # 六件套呈现数据契约 report/v1
 │   ├── report_schema_check.py
-│   ├── report_render.py      # 六件套 HTML 渲染器（紫金主题）
-│   └── gen_daxian_map_qa.py  # 训练数据工厂：大限换算 QA 程序化生成（零 LLM）
+│   ├── report_render.py      # 六件套 HTML 渲染器（紫金主题·可选反馈按钮）
+│   ├── gen_daxian_map_qa.py  # 训练数据工厂：大限换算 QA 程序化生成（零 LLM）
+│   └── telemetry.py          # opt-in 数据回流（运行遥测+报告反馈·零遥测默认）
 └── frontend/
     └── index.html            # 对话前端（单文件：输入生辰+问题 → 轮询 async API）
 ```

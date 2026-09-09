@@ -20,7 +20,7 @@ pipeline_demo.py — 紫微 AI 分析管线参考实现（开源演示版）
     ZIWEI_ENGINE     排盘引擎路径（默认 ~/ziwei-chart/ziwei_chart.js，见 ziwei-chart 仓库）
     OUT_DIR          输出目录（默认 /tmp）
 """
-import json, os, subprocess, sys, datetime
+import json, os, subprocess, sys, datetime, time
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
 _TOOLS = os.path.join(_HERE, "..", "tools")
@@ -60,6 +60,7 @@ def stars_of(pal, kind):
 
 def main():
     all_ok = True
+    t0 = time.time()
     print("=" * 60)
     print("紫微 AI 分析管线 · 参考实现全链演示")
     print("=" * 60)
@@ -198,6 +199,12 @@ def main():
     hp = os.path.join(OUT_DIR, "chain_report.html")
     open(hp, "w", encoding="utf-8").write(html)
     all_ok &= step("⑥ 六件套渲染", len(html) > 2000, f"{len(html)}B → {hp}")
+
+    # ⑦ 可选遥测（opt-in：未配置 ZIWEI_TELEMETRY_URL 时零发送）
+    import telemetry
+    telemetry.pipeline_run(fp, time.time() - t0, question_len=0,
+                           gate_l2="PASS", gate_reconcile="PASS" if gate.get("pass") else "FAIL",
+                           error="" if all_ok else "chain_step_failed")
 
     print("=" * 60)
     print(f"全链演示: {'✅ 通过' if all_ok else '❌ 存在失败'}")
