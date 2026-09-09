@@ -20,7 +20,7 @@ export ZIWEI_TELEMETRY_URL=https://your-server/api/telemetry
 export ZIWEI_EVENT_LOG=./events.jsonl
 
 # 报告反馈按钮：渲染 HTML 前设置，用户点 👍👎 回传
-export ZIWEI_FEEDBACK_URL=https://your-server/api/feedback
+export ZIWEI_FEEDBACK_URL=https://your-server/api/report-feedback
 ```
 
 `tools/telemetry.py` 提供 `pipeline_run()` / `report_feedback()` 两个入口，
@@ -48,7 +48,7 @@ def telemetry():
         f.write(json.dumps(ev, ensure_ascii=False) + "\n")
     return jsonify({"ok": True})
 
-@app.post("/api/feedback")
+@app.post("/api/report-feedback")
 def feedback():
     ev = request.get_json(force=True)   # {rating, case_id, fingerprint}
     with open("feedback.jsonl", "a", encoding="utf-8") as f:
