@@ -12,6 +12,11 @@
 4. **报告契约化**——六件套 JSON Schema（report/v1）+ 模板渲染，LLM 只填判词。
 5. **知识层外置**——本仓库不内置任何门派技法/知识库；通过环境变量挂载自己的知识体系（见下）。
 
+## 相关仓库
+
+- [ziwei-chart](https://github.com/zwgecn-commits/ziwei-chart) —— 排盘引擎（文墨天机金标准对齐 · npm `@zwge/ziwei-chart`）
+- [ziwei-skill](https://github.com/zwgecn-commits/ziwei-skill) —— 紫微斗数技法知识底座（`SKILL.md` + `references/`）
+
 ## 文档
 
 - [架构说明](docs/architecture.md) — 链路细节、质量门、踩坑铁律
