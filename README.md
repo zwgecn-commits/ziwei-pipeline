@@ -52,7 +52,7 @@ ziwei-pipeline/
 git clone https://github.com/zwgecn-commits/ziwei-chart ~/ziwei-chart
 cd ~/ziwei-chart && npm install
 
-# 2. 跑通参考实现全链（默认示例盘 1990-07-14 午时 女）
+# 2. 跑通参考实现全链（用内置纯虚构演示盘）
 cd ziwei-pipeline/server
 python3 pipeline_demo.py
 

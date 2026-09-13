@@ -27,7 +27,8 @@ _TOOLS = os.path.join(_HERE, "..", "tools")
 sys.path.insert(0, _TOOLS)
 ENGINE = os.environ.get("ZIWEI_ENGINE", os.path.expanduser("~/ziwei-chart/ziwei_chart.js"))
 OUT_DIR = os.environ.get("OUT_DIR", "/tmp")
-BIRTH_DEFAULT = {"year": 1990, "month": 7, "day": 14, "hour": 12,
+# 纯虚构演示盘（非真实案例）
+BIRTH_DEFAULT = {"year": 1996, "month": 4, "day": 9, "hour": 10,
                  "gender": "女", "minute": 0, "longitude": 120.0}
 
 PALACE_ORDER = ["命宫", "兄弟", "夫妻", "子女", "财帛", "疾厄", "迁移",
