@@ -105,4 +105,14 @@ python3 tools/l2_validator.py chart.json answer.txt --strict
 
 ## License
 
-MIT — 与 `ziwei-chart` 引擎一致。
+**分层授权**（自本版起）：
+
+| 对象 | 许可 |
+|---|---|
+| 工程 / 代码（`server/`、`tools/`、`frontend/` 代码与配置） | [Apache-2.0](./LICENSE)（含专利许可与专利报复条款） |
+| 文字内容（`README`、`docs/**`、`frontend/privacy.example.html` 等文档与模板文案） | [CC BY-NC-SA 4.0](./LICENSE-CONTENT)（署名 · **非商业性使用** · 相同方式共享） |
+
+- 与 `ziwei-chart` 引擎的许可口径一致（该库已升级 Apache-2.0）。
+- **本版之前**的历史版本依其发布时的 `LICENSE`（MIT）授权，**不追溯**。
+- **商业使用**须事先取得书面授权；未获授权而商用即构成侵权，权利人可主张停止侵害、按**侵权违法所得**赔偿、**一至五倍惩罚性赔偿**及维权合理开支。详见 [NOTICE.md](./NOTICE.md) 第四节。
+
